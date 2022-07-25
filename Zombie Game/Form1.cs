@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Zombie_Game
 {
     public partial class Form1 : Form
     {
+        private Sound _sound = null;
 
         bool goLeft, goRight, goUp, goDown, gameOver;
         string facing = "up";
         int playerHealth = 100;
         int speed = 10;
         int ammo = 10;
-        int zombieSpeed = 3;
+        int zombieSpeed = 4;
         Random randNum = new Random();
         int score;
 
@@ -28,6 +24,9 @@ namespace Zombie_Game
         public Form1()
         {
             InitializeComponent();
+            _sound = new Sound();
+            _sound.PlayBackgroundSound();
+
             RestartGame();
         }
 
@@ -214,6 +213,7 @@ namespace Zombie_Game
             }
 
         }
+
 
         private void ShootBullet(string direction)
         {
