@@ -7,7 +7,6 @@ namespace Zombie_Game
 {
     public partial class Form1 : Form
     {
-        //this is a test
         private Sound _sound = null;
 
         bool goLeft, goRight, goUp, goDown, gameOver;
@@ -215,10 +214,6 @@ namespace Zombie_Game
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void ShootBullet(string direction)
         {
