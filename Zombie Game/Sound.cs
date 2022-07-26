@@ -1,43 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
-using System.IO;
+using NAudio.Wave;
 
 namespace Zombie_Game
 {
     public class Sound
     {
-        private SoundPlayer _soundplayer;
+        private WaveStream _soundplayerBgStream;
+        private WaveOut _soundplayerBgOut;
+        private WaveStream _soundShotgunplayerStream;
+        private WaveOut _soundShotgunplayerOut;
 
         public Sound()
         {
-            var soundfile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\gamebackground.wav";
-            _soundplayer = new SoundPlayer(soundfile);
+            var soundBgFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\gamebackground.wav";
+            var soundShotgunFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\shotgun.wav";
+
+            //instiate Background sound
+            _soundplayerBgStream = new AudioFileReader(soundBgFile);
+            _soundplayerBgOut = new WaveOut();
+            _soundplayerBgOut.Init(_soundplayerBgStream);
+
+            //initialize the shuthug
+            _soundShotgunplayerStream = new AudioFileReader(soundShotgunFile);
+            _soundShotgunplayerOut = new WaveOut();
+            _soundShotgunplayerOut.Init(_soundShotgunplayerStream);
+
+
+            //start the sound
+            _soundplayerBgOut.Play();
+
 
         }
 
 
-        public void PlayBackgroundSound()
+        public void PlayShotgunSound()
         {
-            try
-            {
-                //_soundplayer.Play();
-                _soundplayer.PlayLooping();
-            }
-            catch (Exception ex)
-            {
+            if (_soundplayerBgOut.PlaybackState is PlaybackState.Playing) _soundplayerBgOut.Stop();
+            if (_soundShotgunplayerOut.PlaybackState is PlaybackState.Playing) _soundShotgunplayerOut.Stop();
 
-               //logs
-            }
-           
-        }
+            _soundplayerBgStream.CurrentTime = new TimeSpan(0L);
+            _soundShotgunplayerStream.CurrentTime = new TimeSpan(0L);
+            _soundShotgunplayerOut.Play();
+            _soundplayerBgOut.Play();
+            
 
-        public void StopBackgroundSound()
-        {
-            _soundplayer.Stop();
         }
     }
 }

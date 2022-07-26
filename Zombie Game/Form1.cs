@@ -25,8 +25,6 @@ namespace Zombie_Game
         {
             InitializeComponent();
             _sound = new Sound();
-            _sound.PlayBackgroundSound();
-
             RestartGame();
         }
 
@@ -78,7 +76,7 @@ namespace Zombie_Game
                     {
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        ammo += 5;
+                        ammo += 10;
                     }
                 }
 
@@ -160,7 +158,9 @@ namespace Zombie_Game
             if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
-                    ShootBullet(facing);
+
+                ShootBullet(facing);
+                _sound.PlayShotgunSound();
 
                 if (ammo < 1)
                 {
