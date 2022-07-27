@@ -119,6 +119,8 @@ namespace Zombie_Game
                         {
                             score++;
 
+                            //this we kill zombie
+                             _sound.PlaySplatSound();
                             this.Controls.Remove(j);
                             ((PictureBox)j).Dispose();
                             this.Controls.Remove(x);
