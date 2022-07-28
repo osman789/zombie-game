@@ -11,12 +11,26 @@ namespace Zombie_Game
         private WaveOut _soundShotgunplayerOut;
         private WaveStream _soundSplatplayerStream;
         private WaveOut _soundSplatplayerOut;
+        private WaveStream _soundEchoplayerStream;
+        private WaveOut _soundEchoplayerOut;
+
 
         public Sound()
         {
             var soundBgFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\gamebackground.wav";
             var soundShotgunFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\shotgun.wav";
             var soundSplatFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\splat.wav";
+            var soundEchoFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\echo.wav";
+
+            //instiate Background sound
+            _soundplayerBgStream = new AudioFileReader(soundBgFile);
+            _soundplayerBgOut = new WaveOut();
+            _soundplayerBgOut.Init(_soundplayerBgStream);
+
+            //initiate the shuthug
+            _soundEchoplayerStream = new AudioFileReader(soundEchoFile);
+            _soundEchoplayerOut = new WaveOut();
+            _soundEchoplayerOut.Init(_soundEchoplayerStream);
 
             //instiate Background sound
             _soundplayerBgStream = new AudioFileReader(soundBgFile);
@@ -43,7 +57,6 @@ namespace Zombie_Game
             //start the sound
             _soundplayerBgOut.Play();
 
-
         }
 
 
@@ -56,7 +69,6 @@ namespace Zombie_Game
             _soundShotgunplayerStream.CurrentTime = new TimeSpan(0L);
             _soundShotgunplayerOut.Play();
             _soundplayerBgOut.Play();
-
 
         }
 
@@ -71,12 +83,21 @@ namespace Zombie_Game
             _soundSplatplayerOut.Play();
             _soundplayerBgOut.Play();
 
+        }
+        public void PlayEchoSound()
+        {
+            if (_soundplayerBgOut.PlaybackState is PlaybackState.Playing) _soundplayerBgOut.Stop();
+            if (_soundEchoplayerOut.PlaybackState is PlaybackState.Playing) _soundEchoplayerOut.Stop();
+
+            _soundplayerBgStream.CurrentTime = new TimeSpan(0L);
+            _soundEchoplayerStream.CurrentTime = new TimeSpan(0L);
+            _soundEchoplayerOut.Play();
+            _soundplayerBgOut.Play();
+
+        }
+
+
+}   }
 
 
 
-
-
-
-
-    }   } 
-}
