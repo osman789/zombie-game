@@ -188,6 +188,7 @@ namespace Zombie_Game
             }
             else
             {
+                _sound.PlayEchoSound();
                 gameOver = true;
                 Player.Image = Properties.Resources.dead;
                 GameTimer.Stop();
