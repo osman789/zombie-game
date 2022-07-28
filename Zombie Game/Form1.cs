@@ -74,6 +74,8 @@ namespace Zombie_Game
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
+                        //this is where ammo goes away user's touches image
+                        _sound.PlayReloadSound();
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         ammo += 10;
@@ -248,6 +250,7 @@ namespace Zombie_Game
             ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
             ammo.Tag = "ammo";
             this.Controls.Add(ammo);
+            
 
             ammo.BringToFront();
             Player.BringToFront();

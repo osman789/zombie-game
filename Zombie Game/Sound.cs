@@ -13,6 +13,8 @@ namespace Zombie_Game
         private WaveOut _soundSplatplayerOut;
         private WaveStream _soundEchoplayerStream;
         private WaveOut _soundEchoplayerOut;
+        private WaveStream _soundReloadplayerStream;
+        private WaveOut _soundReloadplayerOut;
 
 
         public Sound()
@@ -21,8 +23,9 @@ namespace Zombie_Game
             var soundShotgunFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\shotgun.wav";
             var soundSplatFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\splat.wav";
             var soundEchoFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\echo.wav";
+            var soundReloadFile = System.IO.Directory.GetCurrentDirectory() + "\\sounds\\reload.wav";
 
-            //instiate Background sound
+            //initiate Background sound
             _soundplayerBgStream = new AudioFileReader(soundBgFile);
             _soundplayerBgOut = new WaveOut();
             _soundplayerBgOut.Init(_soundplayerBgStream);
@@ -32,7 +35,7 @@ namespace Zombie_Game
             _soundEchoplayerOut = new WaveOut();
             _soundEchoplayerOut.Init(_soundEchoplayerStream);
 
-            //instiate Background sound
+            //initiate Background sound
             _soundplayerBgStream = new AudioFileReader(soundBgFile);
             _soundplayerBgOut = new WaveOut();
             _soundplayerBgOut.Init(_soundplayerBgStream);
@@ -43,16 +46,25 @@ namespace Zombie_Game
             _soundSplatplayerOut.Init(_soundSplatplayerStream);
 
 
-            //instiate Background sound
+            //initiate Background sound
             _soundplayerBgStream = new AudioFileReader(soundBgFile);
             _soundplayerBgOut = new WaveOut();
             _soundplayerBgOut.Init(_soundplayerBgStream);
 
-            //initialize the shuthug
+            //initiate the shuthug
             _soundShotgunplayerStream = new AudioFileReader(soundShotgunFile);
             _soundShotgunplayerOut = new WaveOut();
             _soundShotgunplayerOut.Init(_soundShotgunplayerStream);
 
+            //initiate Background sound
+            _soundplayerBgStream = new AudioFileReader(soundBgFile);
+            _soundplayerBgOut = new WaveOut();
+            _soundplayerBgOut.Init(_soundplayerBgStream);
+
+            //initiate the shuthug
+            _soundReloadplayerStream = new AudioFileReader(soundReloadFile);
+            _soundReloadplayerOut = new WaveOut();
+            _soundReloadplayerOut.Init(_soundReloadplayerStream);
 
             //start the sound
             _soundplayerBgOut.Play();
@@ -95,6 +107,21 @@ namespace Zombie_Game
             _soundplayerBgOut.Play();
 
         }
+
+        public void PlayReloadSound()
+        {
+            if (_soundplayerBgOut.PlaybackState is PlaybackState.Playing) _soundplayerBgOut.Stop();
+            if (_soundReloadplayerOut.PlaybackState is PlaybackState.Playing) _soundReloadplayerOut.Stop();
+
+            _soundplayerBgStream.CurrentTime = new TimeSpan(0L);
+            _soundReloadplayerStream.CurrentTime = new TimeSpan(0L); 
+            _soundReloadplayerOut.Play();
+            _soundplayerBgOut.Play();
+
+
+
+        }
+
 
 
 }   }
