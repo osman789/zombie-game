@@ -14,7 +14,7 @@ namespace Zombie_Game
         int playerHealth = 100;
         int speed = 10;
         int ammo = 10;
-        int zombieSpeed = 4;
+        int zombieSpeed = 3;
         Random randNum = new Random();
         int score;
 
@@ -70,7 +70,7 @@ namespace Zombie_Game
 
             foreach (Control x in this.Controls)
             {
-                if (x is PictureBox && (string)x.Tag =="ammo")
+                if (x is PictureBox && (string)x.Tag == "ammo")
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
                     {
@@ -78,7 +78,7 @@ namespace Zombie_Game
                         _sound.PlayReloadSound();
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        ammo += 10;
+                        ammo += 5;
                     }
                 }
 
@@ -115,7 +115,7 @@ namespace Zombie_Game
 
                 foreach (Control j in this.Controls)
                 {
-                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie" )
+                    if (j is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie")
                     {
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
@@ -123,6 +123,7 @@ namespace Zombie_Game
 
                             //this we kill zombie
                              _sound.PlaySplatSound();
+
                             this.Controls.Remove(j);
                             ((PictureBox)j).Dispose();
                             this.Controls.Remove(x);
@@ -236,6 +237,7 @@ namespace Zombie_Game
             zombie.Image = Properties.Resources.zdown;
             zombie.Left = randNum.Next(0, 900);
             zombie.Top = randNum.Next(0, 800);
+            zombie.SizeMode = PictureBoxSizeMode.AutoSize;
             zombiesList.Add(zombie);
             this.Controls.Add(zombie);
             Player.BringToFront();
